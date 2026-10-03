@@ -1,0 +1,37 @@
+%{
+/* Name: Ayushi Nasare PRN:24070521174 */
+
+#include <stdio.h>
+
+int comments = 0, keyword = 0, identifier = 0;
+int words = 0, lines = 0, spaces = 0;
+%}
+
+%%
+
+"/*"[^*]*"*"+/     {comments++;}
+"//".*             {comments++;}
+[ \t]+             {spaces += yyleng;}
+\n                 {lines++;}
+
+"int"|"float"|"char"|"double"|"if"|"else"|"while"|"for"|"return"    {keyword++; words++;}
+[a-zA-Z][a-zA-Z0-9_]*    {identifier++; words++;}
+[0-9]+              {words++;}
+.                   { /* ignore other characters */ }
+
+%%
+
+int main() {
+    yylex();
+
+    printf("comments : %d\n", comments);
+    printf("keywords : %d\n", keyword);
+    printf("Identifier : %d\n", identifier);
+    printf("words : %d\n", words);
+    printf("lines : %d\n", lines);
+    printf("spaces : %d\n", spaces);
+}
+
+int yywrap(){
+    return 1;
+}

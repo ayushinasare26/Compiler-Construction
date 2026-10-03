@@ -1,0 +1,31 @@
+%{
+/* Name: Ayushi Nasare PRN:24070521174 */
+#include <stdio.h>
+int count = 0;
+%}
+
+%%
+
+[a-zA-Z]* {
+        if (yytext[0] == 'A' || yytext[0] == 'a')
+                count++;
+}
+
+[ \t]+     ;
+\n         return 0;
+.          ;
+
+%%
+
+int main()
+{
+    printf("Enter the text:\n");
+    yylex();
+    printf("\nNumber of words starting with 'A' or 'a' = %d\n", count);
+    return 0;
+}
+
+int yywrap()
+{
+    return 1;
+}

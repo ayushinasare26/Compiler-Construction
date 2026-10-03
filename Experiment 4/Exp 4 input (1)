@@ -1,0 +1,40 @@
+%{
+/* Name: Ayushi Nasare PRN:24070521174 */
+#include<stdio.h>
+#include<stdio.h>
+
+int yylex();
+int yyerror(char *s);
+%}
+
+%token NUM
+
+%%
+
+E : E '+' T
+  | T
+  ;
+
+T : T '*' F
+  | F
+  ;
+
+F : '(' E ')'
+  | NUM
+  ;
+
+%%
+
+int yyerror(char *s)
+{
+    printf("Invalid Expression\n");
+    return 0;
+}
+
+int main()
+{
+    printf("Enter Expression: ");
+    yyparse();
+    printf("Valid Expression\n");
+    return 0;
+}
